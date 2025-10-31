@@ -13,13 +13,89 @@ A TypeScript SDK for integrating AgnoPay payment processing into your applicatio
 
 ## Installation
 
-The SDK is located in `lib/agnopay-sdk` and can be imported directly:
+### npm / pnpm / yarn
 
-```typescript
-import { useAgnoPayCheckout, AgnoPayCheckout } from '@/lib/agnopay-sdk';
+```bash
+npm install @agnopay/sdk
+# or
+pnpm add @agnopay/sdk
+# or
+yarn add @agnopay/sdk
 ```
 
-## Quick Start
+### CDN (Vanilla JavaScript)
+
+```html
+<script src="https://unpkg.com/@agnopay/sdk@latest/dist/browser.global.js"></script>
+```
+
+## Quick Start (Vanilla JavaScript)
+
+For vanilla JavaScript usage without any frameworks:
+
+### Step 1: Include the Script
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+  <title>AgnoPay Checkout</title>
+</head>
+<body>
+  <button id="checkout-btn">Buy Now - $99.00</button>
+  <div id="checkout-container"></div>
+
+  <!-- Include AgnoPay SDK from CDN -->
+  <script src="https://unpkg.com/@agnopay/sdk@latest/dist/browser.global.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
+```
+
+### Step 2: Create Orders (app.js)
+
+```javascript
+// SDK is available as window.AgnoPay
+const client = new AgnoPay.AgnoPaySDK({
+  apiKey: 'ak_your_publishable_key_here'
+});
+
+document.getElementById('checkout-btn').addEventListener('click', async () => {
+  try {
+    // Create order
+    const order = await client.createOrder({
+      line_items: [{
+        code: 'ITEM-001',
+        description: 'Premium Product',
+        amount: 9900, // Amount in cents ($99.00)
+        quantity: 1
+      }]
+    });
+
+    console.log('Order created:', order.id);
+
+    // Redirect to wallet checkout page
+    window.location.href = `http://localhost:3000/order/${order.id}`;
+  } catch (error) {
+    console.error('Failed to create order:', error);
+    alert('Checkout failed. Please try again.');
+  }
+});
+```
+
+### Step 3: Optional Configuration
+
+```javascript
+// Configure custom endpoints
+AgnoPay.configureAgnoPay({
+  apiUrl: 'https://agnoapi.vercel.app',
+  walletUrl: 'http://localhost:3000'
+});
+```
+
+That's it! 🎉 No build tools required!
+
+## Quick Start (React/Next.js)
 
 ### Step 1: Set Your Publishable Key
 
@@ -34,7 +110,7 @@ NEXT_PUBLIC_AGNOPAY_KEY="ak_your_publishable_key_here"
 ```typescript
 'use client';
 
-import { useAgnoPayCheckout, AgnoPayCheckout } from '@/lib/agnopay-sdk';
+import { useAgnoPayCheckout } from '@agnopay/sdk';
 import { useRouter } from 'next/navigation';
 
 export default function ProductPage() {
@@ -68,7 +144,7 @@ export default function ProductPage() {
 'use client';
 
 import { use } from 'react';
-import { AgnoPayCheckout } from '@/lib/agnopay-sdk';
+import { AgnoPayCheckout } from '@agnopay/sdk';
 import { useRouter } from 'next/navigation';
 
 export default function CheckoutPage({

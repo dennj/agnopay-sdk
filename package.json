@@ -47,6 +47,9 @@
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "browser": "./dist/browser.global.js",
+  "unpkg": "./dist/browser.global.js",
+  "jsdelivr": "./dist/browser.global.js",
   "files": [
     "dist",
     "README.md",
@@ -96,7 +99,10 @@
     "typescript",
     "react",
     "payments",
-    "wallet"
+    "wallet",
+    "vanilla-js",
+    "browser",
+    "cdn"
   ],
   "engines": {
     "node": ">=16.0.0"
