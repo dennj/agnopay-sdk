@@ -1,12 +1,13 @@
 'use client';
 
 import React from 'react';
-import { getAgnoPayConfig } from '../config';
 import type { IframeStyleConfig } from '../types';
+
+// Hardcoded AgnoPay Wallet URL (immutable)
+const AGNOPAY_WALLET_URL = 'http://localhost:3000';
 
 export interface AgnoPayCheckoutProps {
   orderId: string;
-  walletUrl?: string; // Override default wallet URL
   onSuccess?: (orderId: string) => void;
   onError?: (error: Error) => void;
   className?: string;
@@ -23,7 +24,6 @@ export interface AgnoPayCheckoutProps {
  * ```typescript
  * <AgnoPayCheckout
  *   orderId={order.id}
- *   walletUrl="https://wallet.agnopay.com" // Optional override
  *   onSuccess={() => router.push('/success')}
  *   style={{ primaryColor: '#10b981' }}
  * />
@@ -31,7 +31,6 @@ export interface AgnoPayCheckoutProps {
  */
 export function AgnoPayCheckout({
   orderId,
-  walletUrl,
   onSuccess,
   onError,
   className,
@@ -39,12 +38,10 @@ export function AgnoPayCheckout({
   style,
   hideHeader = false,
 }: AgnoPayCheckoutProps) {
-  const config = getAgnoPayConfig();
-  const effectiveWalletUrl = walletUrl || config.walletUrl;
 
   // Build iframe URL with style parameters
   const iframeUrl = React.useMemo(() => {
-    const url = new URL(`${effectiveWalletUrl}/orders/${orderId}`);
+    const url = new URL(`${AGNOPAY_WALLET_URL}/order/${orderId}`);
 
     if (style) {
       if (style.transparent !== undefined) {
@@ -68,13 +65,13 @@ export function AgnoPayCheckout({
     }
 
     return url.toString();
-  }, [effectiveWalletUrl, orderId, style]);
+  }, [orderId, style]);
 
   // Listen for messages from the iframe (for payment status updates)
   React.useEffect(() => {
     const handleMessage = (event: MessageEvent) => {
       // Only accept messages from the wallet URL
-      if (!event.origin.startsWith(effectiveWalletUrl)) {
+      if (!event.origin.startsWith(AGNOPAY_WALLET_URL)) {
         return;
       }
 
@@ -93,7 +90,7 @@ export function AgnoPayCheckout({
 
     window.addEventListener('message', handleMessage);
     return () => window.removeEventListener('message', handleMessage);
-  }, [effectiveWalletUrl, orderId, onSuccess, onError]);
+  }, [orderId, onSuccess, onError]);
 
   // Apply transparent background if configured
   const containerClassName = React.useMemo(() => {

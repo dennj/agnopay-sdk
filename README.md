@@ -83,16 +83,6 @@ document.getElementById('checkout-btn').addEventListener('click', async () => {
 });
 ```
 
-### Step 3: Optional Configuration
-
-```javascript
-// Configure custom endpoints
-AgnoPay.configureAgnoPay({
-  apiUrl: 'https://agnoapi.vercel.app',
-  walletUrl: 'http://localhost:3000'
-});
-```
-
 That's it! 🎉 No build tools required!
 
 ## Quick Start (React/Next.js)

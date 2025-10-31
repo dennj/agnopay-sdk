@@ -28,15 +28,7 @@ agnopay-sdk/
 
 ## Key Features
 
-### 1. Configurable URLs
-- API URL and Wallet URL are now configurable
-- Can be set globally via `configureAgnoPay()` function
-- Can be overridden per-hook or per-component
-- Default values:
-  - API: `https://agnoapi.vercel.app`
-  - Wallet: `http://localhost:3000`
-
-### 2. Build System (tsup)
+### 1. Build System (tsup)
 - Compiles TypeScript to JavaScript
 - Generates `.d.ts` type declaration files
 - Outputs multiple formats:
@@ -45,7 +37,7 @@ agnopay-sdk/
 - Creates source maps for debugging
 - Automatically adds 'use client' directive to React files
 
-### 3. Module Exports
+### 2. Module Exports
 Configured with conditional exports for optimal loading:
 - `@agnopay/sdk` - Main entry (all exports)
 - `@agnopay/sdk/client` - Core client only
@@ -54,12 +46,12 @@ Configured with conditional exports for optimal loading:
 - `@agnopay/sdk/server` - Next.js server utilities
 - `@agnopay/sdk/types` - TypeScript types only
 
-### 4. Peer Dependencies
+### 3. Peer Dependencies
 - React and React-DOM are optional peer dependencies
 - Users who don't use React won't have it in their bundles
 - Supports React 16.8+ through React 19+
 
-### 5. Tree-Shaking
+### 4. Tree-Shaking
 - `sideEffects: false` enables aggressive tree-shaking
 - Users only bundle what they import
 - Example: Importing only `AgnoPaySDK` client won't bundle React
@@ -73,13 +65,7 @@ npm install @agnopay/sdk
 
 ### Basic Usage
 ```typescript
-import { useAgnoPayCheckout, AgnoPayCheckout, configureAgnoPay } from '@agnopay/sdk';
-
-// Optional: Configure custom URLs
-configureAgnoPay({
-  apiUrl: 'https://api.production.com',
-  walletUrl: 'https://wallet.production.com'
-});
+import { useAgnoPayCheckout, AgnoPayCheckout } from '@agnopay/sdk';
 
 // Use in components
 const { createOrder, isLoading } = useAgnoPayCheckout({
@@ -129,12 +115,6 @@ git push origin v0.1.0
 - The `AgnoPayClient` has zero React dependencies
 - Can be used in vanilla JS, Vue, Svelte, etc.
 - React hooks and components are optional add-ons
-
-### ✅ Why Configurable URLs?
-- Development vs Production environments
-- Self-hosted instances
-- White-label solutions
-- Testing with different backends
 
 ### ✅ Why Separate Build Configs?
 - React files get 'use client' directive

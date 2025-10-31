@@ -35,10 +35,6 @@
 // Core SDK
 export { AgnoPayClient as AgnoPaySDK } from './client';
 
-// Configuration
-export { configureAgnoPay, getAgnoPayConfig, resetAgnoPayConfig } from './config';
-export type { AgnoPaySDKConfig } from './config';
-
 // Components
 export { AgnoPayCheckout } from './components/AgnoPayCheckout';
 

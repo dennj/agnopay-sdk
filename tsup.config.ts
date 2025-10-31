@@ -5,7 +5,6 @@ const moduleConfig = defineConfig({
   entry: {
     index: 'src/index.ts',
     client: 'src/client.ts',
-    config: 'src/config.ts',
     server: 'src/server.ts',
     types: 'src/types.ts',
     'client-hooks': 'src/client-hooks.ts',

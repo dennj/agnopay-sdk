@@ -29,11 +29,7 @@
 // Export core client (renamed for clarity)
 export { AgnoPayClient as AgnoPaySDK } from './client';
 
-// Export configuration functions
-export { configureAgnoPay, getAgnoPayConfig, resetAgnoPayConfig } from './config';
-
 // Export all types
-export type { AgnoPaySDKConfig } from './config';
 export type {
   AgnoPayConfig,
   LineItem,

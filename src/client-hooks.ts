@@ -6,12 +6,13 @@
 'use client';
 
 import { useState } from 'react';
-import { getAgnoPayConfig } from './config';
 import type { CreateOrderRequest, CreateOrderResponse, AgnoPayError } from './types';
+
+// Hardcoded AgnoPay API URL (immutable)
+const AGNOPAY_API_URL = 'https://agnoapi.vercel.app';
 
 export interface UseAgnoPayCheckoutOptions {
   publishableKey?: string; // Public API key (safe to expose)
-  apiUrl?: string; // Override default API URL
   onSuccess?: (order: CreateOrderResponse) => void;
   onError?: (error: AgnoPayError) => void;
 }
@@ -31,7 +32,6 @@ export interface UseAgnoPayCheckoutReturn {
  * ```typescript
  * const { createOrder, isLoading } = useAgnoPayCheckout({
  *   publishableKey: 'ak_...',
- *   apiUrl: 'https://api.agnopay.com', // Optional override
  *   onSuccess: (order) => console.log('Created:', order.id)
  * });
  * ```
@@ -39,10 +39,8 @@ export interface UseAgnoPayCheckoutReturn {
 export function useAgnoPayCheckout(
   options: UseAgnoPayCheckoutOptions = {}
 ): UseAgnoPayCheckoutReturn {
-  const config = getAgnoPayConfig();
   const {
     publishableKey = process.env.NEXT_PUBLIC_AGNOPAY_KEY,
-    apiUrl = config.apiUrl,
     onSuccess,
     onError
   } = options;
@@ -68,7 +66,7 @@ export function useAgnoPayCheckout(
     setError(null);
 
     try {
-      const response = await fetch(`${apiUrl}/v1/orders`, {
+      const response = await fetch(`${AGNOPAY_API_URL}/v1/orders`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
