@@ -1,0 +1,49 @@
+# Source files
+src/
+*.ts
+*.tsx
+!*.d.ts
+
+# Build config
+tsconfig.json
+tsup.config.ts
+
+# Tests
+**/*.test.*
+**/*.spec.*
+__tests__/
+tests/
+
+# Development
+.env
+.env.*
+node_modules/
+
+# Git
+.git/
+.gitignore
+.github/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Documentation
+docs/
+*.md
+!README.md
+!CHANGELOG.md
+!LICENSE
+
+# Misc
+.eslintrc*
+.prettierrc*
+coverage/
+*.log
