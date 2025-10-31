@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AgnoPay SDK - Browser Test</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      max-width: 600px;
+      margin: 50px auto;
+      padding: 20px;
+    }
+    button {
+      background: #3b82f6;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+    button:hover {
+      background: #2563eb;
+    }
+    button:disabled {
+      background: #9ca3af;
+      cursor: not-allowed;
+    }
+    .result {
+      margin-top: 20px;
+      padding: 15px;
+      background: #f3f4f6;
+      border-radius: 8px;
+      white-space: pre-wrap;
+    }
+    .error {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+    .success {
+      background: #d1fae5;
+      color: #065f46;
+    }
+  </style>
+</head>
+<body>
+  <h1>AgnoPay SDK Browser Test</h1>
+  <p>This page tests the vanilla JavaScript browser bundle.</p>
+
+  <div id="product-section">
+    <h3>Product: Premium Course Bundle</h3>
+    <p>Price: R$ 99.00</p>
+    <button id="checkout-btn">Buy Now</button>
+  </div>
+
+  <div id="result" class="result" style="display: none;"></div>
+
+  <!-- Checkout iframe container (hidden initially) -->
+  <div id="checkout-container" style="display: none;"></div>
+
+  <!-- Include the SDK from local dist folder -->
+  <script src="./dist/browser.global.js"></script>
+
+  <script>
+    // Verify AgnoPay is available globally
+    console.log('AgnoPay SDK loaded:', typeof window.AgnoPay);
+    console.log('Available exports:', Object.keys(window.AgnoPay));
+
+    // Create SDK client
+    const client = new AgnoPay.AgnoPaySDK({
+      apiKey: 'ak_fLbLQFpYipcezh7RzwiYXY9jVFE0GCwoZnjbuVHx8'
+    });
+
+    // Handle checkout button click
+    document.getElementById('checkout-btn').addEventListener('click', async () => {
+      const button = document.getElementById('checkout-btn');
+      const resultDiv = document.getElementById('result');
+
+      button.disabled = true;
+      button.textContent = 'Processing...';
+      resultDiv.style.display = 'none';
+
+      try {
+        // Create order
+        const order = await client.createOrder({
+          line_items: [{
+            code: 'ITEM-001',
+            description: 'Premium Course Bundle',
+            amount: 9900, // Amount in cents ($99.00)
+            quantity: 1
+          }]
+        });
+
+        // Show success
+        resultDiv.className = 'result success';
+        resultDiv.style.display = 'block';
+        resultDiv.textContent = `✓ Order created successfully!\n\nOrder ID: ${order.id}\n\nLoading checkout...`;
+
+        console.log('Order created:', order);
+
+        // Show checkout iframe using the SDK's createCheckout widget
+        setTimeout(() => {
+          // Hide product section and result
+          document.getElementById('product-section').style.display = 'none';
+          resultDiv.style.display = 'none';
+
+          // Use AgnoPay.createCheckout() - simple one-liner!
+          const widget = AgnoPay.createCheckout({
+            orderId: order.id,
+            container: '#checkout-container',
+            title: 'Complete Your Purchase',
+            style: {
+              primaryColor: '#dc2626',
+              textColor: '#2c2a2aff',
+              borderRadius: '0.5rem',
+              fontFamily: 'system-ui, -apple-system, sans-serif'
+            },
+            onSuccess: (orderId) => {
+              console.log('✓ Payment successful!', orderId);
+              alert(`Payment successful for order: ${orderId}`);
+              // Reload page to start fresh
+              setTimeout(() => window.location.reload(), 2000);
+            },
+            onError: (error) => {
+              console.error('✗ Payment failed:', error);
+              alert(`Payment failed: ${error.message}`);
+              // Destroy widget and return to product page
+              widget.destroy();
+              document.getElementById('product-section').style.display = 'block';
+            }
+          });
+
+          console.log('Checkout widget created for order:', order.id);
+        }, 1500);
+
+      } catch (error) {
+        // Show error
+        resultDiv.className = 'result error';
+        resultDiv.style.display = 'block';
+        resultDiv.textContent = `✗ Error creating order:\n\n${error.message || JSON.stringify(error, null, 2)}`;
+
+        console.error('Error:', error);
+
+        button.disabled = false;
+        button.textContent = 'Buy Now';
+      }
+    });
+  </script>
+</body>
+</html>

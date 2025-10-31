@@ -29,6 +29,10 @@
 // Export core client (renamed for clarity)
 export { AgnoPayClient as AgnoPaySDK } from './client';
 
+// Export vanilla JS checkout widget
+export { createCheckout } from './checkout-widget';
+export type { CreateCheckoutOptions, CheckoutWidget } from './checkout-widget';
+
 // Export all types
 export type {
   AgnoPayConfig,

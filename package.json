@@ -39,6 +39,11 @@
       "import": "./dist/server.js",
       "require": "./dist/server.cjs"
     },
+    "./checkout": {
+      "types": "./dist/checkout-widget.d.ts",
+      "import": "./dist/checkout-widget.js",
+      "require": "./dist/checkout-widget.cjs"
+    },
     "./types": {
       "types": "./dist/types.d.ts"
     },

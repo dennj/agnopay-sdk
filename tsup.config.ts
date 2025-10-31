@@ -8,6 +8,7 @@ const moduleConfig = defineConfig({
     server: 'src/server.ts',
     types: 'src/types.ts',
     'client-hooks': 'src/client-hooks.ts',
+    'checkout-widget': 'src/checkout-widget.ts',
     'components/AgnoPayCheckout': 'src/components/AgnoPayCheckout.tsx',
   },
   format: ['cjs', 'esm'],

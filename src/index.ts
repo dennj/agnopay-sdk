@@ -35,6 +35,10 @@
 // Core SDK
 export { AgnoPayClient as AgnoPaySDK } from './client';
 
+// Vanilla JS Checkout Widget
+export { createCheckout } from './checkout-widget';
+export type { CreateCheckoutOptions, CheckoutWidget } from './checkout-widget';
+
 // Components
 export { AgnoPayCheckout } from './components/AgnoPayCheckout';
 
