@@ -20,7 +20,18 @@ export interface CreateOrderRequest {
 export interface CreateOrderResponse {
   id: string;
   status: string;
-  // Add other fields returned by the API
+  payment_method?: 'pix' | 'boleto' | 'credit_card';
+  pix?: {
+    qr_code: string;
+    qr_code_url: string;
+    expires_at: string;
+  };
+  boleto?: {
+    barcode: string;
+    line: string;
+    url: string;
+    due_at: string;
+  };
 }
 
 export interface AgnoPayError {
