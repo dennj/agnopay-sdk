@@ -18,7 +18,7 @@ export interface CreateOrderRequest {
 }
 
 export interface CreateOrderResponse {
-  id: string;
+  uuid: string;
   status: string;
   payment_method?: 'pix' | 'boleto' | 'credit_card';
   pix?: {
