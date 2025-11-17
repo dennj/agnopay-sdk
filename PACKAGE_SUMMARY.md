@@ -70,10 +70,10 @@ import { useAgnoPayCheckout, AgnoPayCheckout } from '@agnopay/sdk';
 // Use in components
 const { createOrder, isLoading } = useAgnoPayCheckout({
   publishableKey: 'ak_...',
-  onSuccess: (order) => console.log(order.id)
+  onSuccess: (order) => console.log(order.uuid)
 });
 
-<AgnoPayCheckout orderId={order.id} />
+<AgnoPayCheckout orderId={order.uuid} />
 ```
 
 ## Build Process

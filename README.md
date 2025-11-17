@@ -72,10 +72,10 @@ document.getElementById('checkout-btn').addEventListener('click', async () => {
       }]
     });
 
-    console.log('Order created:', order.id);
+    console.log('Order created:', order.uuid);
 
     // Redirect to wallet checkout page
-    window.location.href = `http://localhost:3000/orders/${order.id}`;
+    window.location.href = `http://localhost:3000/orders/${order.uuid}`;
   } catch (error) {
     console.error('Failed to create order:', error);
     alert('Checkout failed. Please try again.');
@@ -106,7 +106,7 @@ import { useRouter } from 'next/navigation';
 export default function ProductPage() {
   const router = useRouter();
   const { createOrder, isLoading } = useAgnoPayCheckout({
-    onSuccess: (order) => router.push(`/checkout/${order.id}`),
+    onSuccess: (order) => router.push(`/checkout/${order.uuid}`),
   });
 
   const handleCheckout = async () => {
@@ -204,7 +204,7 @@ Component that displays the checkout interface in an iframe.
 
 ```typescript
 <AgnoPayCheckout
-  orderId={order.id}
+  orderId={order.uuid}
   onSuccess={(orderId) => router.push('/success')}
   style={{ primaryColor: '#10b981' }}
 />
@@ -243,7 +243,7 @@ interface IframeStyleConfig {
 
 ```typescript
 const { createOrder, isLoading } = useAgnoPayCheckout({
-  onSuccess: (order) => console.log('Order created:', order.id),
+  onSuccess: (order) => console.log('Order created:', order.uuid),
   onError: (error) => alert(error.message),
 });
 
@@ -261,7 +261,7 @@ await createOrder({
 
 ```typescript
 <AgnoPayCheckout
-  orderId={order.id}
+  orderId={order.uuid}
   title="Secure Payment"
   style={{
     primaryColor: '#10b981',
@@ -277,7 +277,7 @@ await createOrder({
 
 ```typescript
 <AgnoPayCheckout
-  orderId={order.id}
+  orderId={order.uuid}
   style={{
     primaryColor: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
     textColor: '#ffffff',
@@ -289,7 +289,7 @@ await createOrder({
 
 ```typescript
 <AgnoPayCheckout
-  orderId={order.id}
+  orderId={order.uuid}
   hideHeader={true}
   style={{ transparent: true }}
   className="fixed inset-0 z-50"
@@ -352,7 +352,7 @@ export default function ProductPage() {
   const [checkoutId, setCheckoutId] = useState<string | null>(null);
 
   const { createOrder, isLoading, error } = useAgnoPayCheckout({
-    onSuccess: (order) => setCheckoutId(order.id),
+    onSuccess: (order) => setCheckoutId(order.uuid),
     onError: (error) => alert(error.message),
   });
 

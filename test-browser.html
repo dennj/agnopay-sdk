@@ -96,7 +96,7 @@
         // Show success
         resultDiv.className = 'result success';
         resultDiv.style.display = 'block';
-        resultDiv.textContent = `✓ Order created successfully!\n\nOrder ID: ${order.id}\n\nLoading checkout...`;
+        resultDiv.textContent = `✓ Order created successfully!\n\nOrder ID: ${order.uuid}\n\nLoading checkout...`;
 
         console.log('Order created:', order);
 
@@ -108,7 +108,7 @@
 
           // Use AgnoPay.createCheckout() - simple one-liner!
           const widget = AgnoPay.createCheckout({
-            orderId: order.id,
+            orderId: order.uuid,
             container: '#checkout-container',
             title: 'Complete Your Purchase',
             style: {
@@ -132,7 +132,7 @@
             }
           });
 
-          console.log('Checkout widget created for order:', order.id);
+          console.log('Checkout widget created for order:', order.uuid);
         }, 1500);
 
       } catch (error) {

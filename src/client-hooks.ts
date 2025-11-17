@@ -32,7 +32,7 @@ export interface UseAgnoPayCheckoutReturn {
  * ```typescript
  * const { createOrder, isLoading } = useAgnoPayCheckout({
  *   publishableKey: 'ak_...',
- *   onSuccess: (order) => console.log('Created:', order.id)
+ *   onSuccess: (order) => console.log('Created:', order.uuid)
  * });
  * ```
  */

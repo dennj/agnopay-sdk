@@ -12,7 +12,7 @@
  * import { useAgnoPayCheckout, AgnoPayCheckout } from '@/lib/agnopay-sdk';
  *
  * const { createOrder, isLoading } = useAgnoPayCheckout({
- *   onSuccess: (order) => router.push(`/checkout/${order.id}`)
+ *   onSuccess: (order) => router.push(`/checkout/${order.uuid}`)
  * });
  *
  * // 3. Create order (calls AgnoPay API directly)
@@ -21,7 +21,7 @@
  * });
  *
  * // 4. Display checkout with custom styling
- * <AgnoPayCheckout orderId={order.id} style={{ primaryColor: '#10b981' }} />
+ * <AgnoPayCheckout orderId={order.uuid} style={{ primaryColor: '#10b981' }} />
  * ```
  *
  * @example Advanced: Server-side (Optional)

@@ -23,7 +23,7 @@ export interface AgnoPayCheckoutProps {
  * @example
  * ```typescript
  * <AgnoPayCheckout
- *   orderId={order.id}
+ *   orderId={order.uuid}
  *   onSuccess={() => router.push('/success')}
  *   style={{ primaryColor: '#10b981' }}
  * />

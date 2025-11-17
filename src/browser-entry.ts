@@ -20,7 +20,7 @@
  *       quantity: 1
  *     }]
  *   }).then(order => {
- *     console.log('Order created:', order.id);
+ *     console.log('Order created:', order.uuid);
  *   });
  * </script>
  * ```
