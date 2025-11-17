@@ -75,7 +75,7 @@ document.getElementById('checkout-btn').addEventListener('click', async () => {
     console.log('Order created:', order.id);
 
     // Redirect to wallet checkout page
-    window.location.href = `http://localhost:3000/order/${order.id}`;
+    window.location.href = `http://localhost:3000/orders/${order.id}`;
   } catch (error) {
     console.error('Failed to create order:', error);
     alert('Checkout failed. Please try again.');
@@ -168,20 +168,20 @@ const { createOrder, isLoading, error, order } = useAgnoPayCheckout(options);
 
 #### Options
 
-| Option | Type | Description |
-|--------|------|-------------|
-| `publishableKey` | `string?` | Public API key (auto-loads from `NEXT_PUBLIC_AGNOPAY_KEY`) |
-| `onSuccess` | `(order) => void` | Called when order is successfully created |
-| `onError` | `(error) => void` | Called when order creation fails |
+| Option           | Type              | Description                                                |
+| ---------------- | ----------------- | ---------------------------------------------------------- |
+| `publishableKey` | `string?`         | Public API key (auto-loads from `NEXT_PUBLIC_AGNOPAY_KEY`) |
+| `onSuccess`      | `(order) => void` | Called when order is successfully created                  |
+| `onError`        | `(error) => void` | Called when order creation fails                           |
 
 #### Returns
 
-| Property | Type | Description |
-|----------|------|-------------|
-| `createOrder` | `(request) => Promise<Order \| null>` | Function to create a new order |
-| `isLoading` | `boolean` | Loading state |
-| `error` | `AgnoPayError \| null` | Error object if creation failed |
-| `order` | `Order \| null` | Created order object |
+| Property      | Type                                  | Description                     |
+| ------------- | ------------------------------------- | ------------------------------- |
+| `createOrder` | `(request) => Promise<Order \| null>` | Function to create a new order  |
+| `isLoading`   | `boolean`                             | Loading state                   |
+| `error`       | `AgnoPayError \| null`                | Error object if creation failed |
+| `order`       | `Order \| null`                       | Created order object            |
 
 #### Order Request
 
@@ -212,15 +212,15 @@ Component that displays the checkout interface in an iframe.
 
 #### Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `orderId` | `string` | - | **Required.** The order ID |
-| `onSuccess` | `(orderId) => void` | - | Called when payment succeeds |
-| `onError` | `(error) => void` | - | Called when payment fails |
-| `title` | `string` | `"Complete Your Purchase"` | Checkout header title |
-| `hideHeader` | `boolean` | `false` | Hide the header |
-| `className` | `string` | - | Custom CSS class |
-| `style` | `IframeStyleConfig` | - | Custom styling |
+| Prop         | Type                | Default                    | Description                  |
+| ------------ | ------------------- | -------------------------- | ---------------------------- |
+| `orderId`    | `string`            | -                          | **Required.** The order ID   |
+| `onSuccess`  | `(orderId) => void` | -                          | Called when payment succeeds |
+| `onError`    | `(error) => void`   | -                          | Called when payment fails    |
+| `title`      | `string`            | `"Complete Your Purchase"` | Checkout header title        |
+| `hideHeader` | `boolean`           | `false`                    | Hide the header              |
+| `className`  | `string`            | -                          | Custom CSS class             |
+| `style`      | `IframeStyleConfig` | -                          | Custom styling               |
 
 #### Styling
 

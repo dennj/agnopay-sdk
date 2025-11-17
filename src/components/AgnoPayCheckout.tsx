@@ -41,7 +41,7 @@ export function AgnoPayCheckout({
 
   // Build iframe URL with style parameters
   const iframeUrl = React.useMemo(() => {
-    const url = new URL(`${AGNOPAY_WALLET_URL}/order/${orderId}`);
+    const url = new URL(`${AGNOPAY_WALLET_URL}/orders/${orderId}`);
 
     if (style) {
       if (style.transparent !== undefined) {

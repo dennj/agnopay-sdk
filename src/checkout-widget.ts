@@ -93,7 +93,7 @@ export function createCheckout(options: CreateCheckoutOptions): CheckoutWidget {
   }
 
   // Build iframe URL with style parameters
-  const iframeUrl = new URL(`${AGNOPAY_WALLET_URL}/order/${orderId}`);
+  const iframeUrl = new URL(`${AGNOPAY_WALLET_URL}/orders/${orderId}`);
 
   if (style) {
     if (style.transparent !== undefined) {
