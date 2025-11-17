@@ -95,52 +95,39 @@ export function AgnoPayCheckout({
   // Apply transparent background if configured
   const containerClassName = React.useMemo(() => {
     if (className) return className;
-
-    const baseClass = 'min-h-screen flex items-center justify-center p-4';
-    const bgClass = style?.transparent ? 'bg-transparent' : 'bg-gray-50';
-
-    return `${baseClass} ${bgClass}`;
+    return style?.transparent ? 'bg-transparent' : 'bg-gray-50';
   }, [className, style?.transparent]);
-
-  const cardClassName = React.useMemo(() => {
-    const baseClass = 'w-full max-w-4xl rounded-lg overflow-hidden';
-    const bgClass = style?.transparent ? 'bg-transparent' : 'bg-white shadow-xl';
-
-    return `${baseClass} ${bgClass}`;
-  }, [style?.transparent]);
 
   return (
     <div className={containerClassName}>
-      <div className={cardClassName}>
-        {!hideHeader && title && (
-          <div
-            className="p-4"
+      {!hideHeader && title && (
+        <div
+          className="p-4"
+          style={{
+            background: style?.primaryColor
+              ? style.primaryColor
+              : 'linear-gradient(to right, rgb(37, 99, 235), rgb(147, 51, 234))',
+          }}
+        >
+          <h1
+            className="text-2xl font-bold text-center"
             style={{
-              background: style?.primaryColor
-                ? style.primaryColor
-                : 'linear-gradient(to right, rgb(37, 99, 235), rgb(147, 51, 234))',
+              color: style?.textColor || 'white',
+              fontFamily: style?.fontFamily,
             }}
           >
-            <h1
-              className="text-2xl font-bold text-center"
-              style={{
-                color: style?.textColor || 'white',
-                fontFamily: style?.fontFamily,
-              }}
-            >
-              {title}
-            </h1>
-          </div>
-        )}
-        <div className="relative w-full" style={{ height: hideHeader ? '100vh' : 'calc(100vh - 200px)' }}>
-          <iframe
-            src={iframeUrl}
-            className="w-full h-full border-0"
-            title="AgnoPay Checkout"
-            sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-popups-to-escape-sandbox"
-            allow="payment"
-          />
+            {title}
+          </h1>
         </div>
+      )}
+      <div className="relative w-full" style={{ height: hideHeader ? '100vh' : 'calc(100vh - 80px)' }}>
+        <iframe
+          src={iframeUrl}
+          className="w-full h-full border-0"
+          title="AgnoPay Checkout"
+          sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-popups-to-escape-sandbox"
+          allow="payment"
+        />
       </div>
     </div>
   );

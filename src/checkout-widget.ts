@@ -118,21 +118,7 @@ export function createCheckout(options: CreateCheckoutOptions): CheckoutWidget {
 
   // Create wrapper
   const wrapper = document.createElement('div');
-  wrapper.style.minHeight = '100vh';
-  wrapper.style.display = 'flex';
-  wrapper.style.alignItems = 'center';
-  wrapper.style.justifyContent = 'center';
-  wrapper.style.padding = '1rem';
   wrapper.style.backgroundColor = style?.transparent ? 'transparent' : '#f9fafb';
-
-  // Create card
-  const card = document.createElement('div');
-  card.style.width = '100%';
-  card.style.maxWidth = '1024px';
-  card.style.borderRadius = '0.5rem';
-  card.style.backgroundColor = style?.transparent ? 'transparent' : 'white';
-  card.style.boxShadow = style?.transparent ? 'none' : '0 20px 25px -5px rgba(0,0,0,0.1)';
-  card.style.overflow = 'hidden';
 
   // Create header (if not hidden)
   if (!hideHeader && title) {
@@ -150,14 +136,14 @@ export function createCheckout(options: CreateCheckoutOptions): CheckoutWidget {
     titleEl.style.margin = '0';
 
     header.appendChild(titleEl);
-    card.appendChild(header);
+    wrapper.appendChild(header);
   }
 
   // Create iframe container
   const iframeContainer = document.createElement('div');
   iframeContainer.style.position = 'relative';
   iframeContainer.style.width = '100%';
-  iframeContainer.style.height = hideHeader ? '100vh' : 'calc(100vh - 200px)';
+  iframeContainer.style.height = hideHeader ? '100vh' : 'calc(100vh - 80px)';
   iframeContainer.style.minHeight = '500px';
 
   // Create iframe
@@ -171,8 +157,7 @@ export function createCheckout(options: CreateCheckoutOptions): CheckoutWidget {
   iframe.setAttribute('allow', 'payment');
 
   iframeContainer.appendChild(iframe);
-  card.appendChild(iframeContainer);
-  wrapper.appendChild(card);
+  wrapper.appendChild(iframeContainer);
 
   // Message handler for payment events
   const handleMessage = (event: MessageEvent) => {
