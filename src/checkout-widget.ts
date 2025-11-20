@@ -6,7 +6,7 @@
 import type { IframeStyleConfig } from './types';
 
 // Hardcoded AgnoPay Wallet URL (immutable)
-const AGNOPAY_WALLET_URL = 'http://localhost:3000';
+const AGNOPAY_WALLET_URL = 'https://agnowallet.vercel.app';
 
 export interface CreateCheckoutOptions {
   /** Order ID to display checkout for */
